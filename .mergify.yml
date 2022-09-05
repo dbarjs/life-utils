@@ -1,0 +1,40 @@
+# https://doc.mergify.io/
+
+queue_rules:
+  - name: default
+    conditions:
+      - check-success~=^(Vercel).*$ # Needs all REQUIRED Vercel checks
+
+pull_request_rules:
+  - name: automate merge workflow
+    conditions:
+      - base~=(develop|main)
+      - '#approved-reviews-by>=1' # Needs at least approved reviews
+      - '#changes-requested-reviews-by=0' # Needs to have 0 change requests
+      - -conflict # Cant be conflicting with base branch
+      - label!=Status / Delayed merge
+      - title~=^(?!.*WIP).*$ # Checks if PR title has uppercase WIP
+      - check-success~=^(Vercel).*$ # Needs all REQUIRED Vercel checks
+    actions:
+      request_reviews:
+        users_from_teams:
+          - '@Talentify/front-end'
+      queue:
+        method: merge
+        name: default
+
+  - name: ask to resolve conflict
+    conditions:
+      - conflict
+      - -merged
+    actions:
+      comment:
+        message: '@{{author}}, essa PR possui conflitos com o branch base. Por favor, resolver.'
+
+  - name: auto assign author to PR
+    conditions:
+      - -merged
+    actions:
+      assign:
+        users:
+          - '{{author}}'

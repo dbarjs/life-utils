@@ -1,0 +1,23 @@
+{
+  "baseUrl": ".",
+  "compilerOptions": {
+    "composite": true
+  },
+  "paths": {
+    "@life-utils/app": ["./packages/app"],
+    "@life-utils/auth": ["./packages/auth"],
+    "@life-utils/birthdays": ["./packages/birthdays"]
+  },
+  "references": [
+    {
+      "path": "./packages/app"
+    },
+    {
+      "path": "./packages/auth"
+    },
+    {
+      "path": "./packages/birthdays"
+    }
+  ],
+  "exclude": ["node_modules", ".yarn"]
+}

@@ -1,0 +1,28 @@
+{
+  "recommendations": [
+    "vue.volar",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "zixuanchen.vitest-explorer",
+    "misterj.vue-volar-extention-pack",
+    "vue.vscode-typescript-vue-plugin",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "xabikos.javascriptsnippets",
+    "christian-kohler.path-intellisense",
+    "sibiraj-s.vscode-scss-formatter",
+    "wscats.vue",
+    "sdras.vue-vscode-snippets",
+    "mikestead.dotenv",
+    "steoates.autoimport",
+    "syler.sass-indented",
+    "usernamehw.errorlens",
+    "pranaygp.vscode-css-peek",
+    "antfu.vite"
+  ],
+  "unwantedRecommendations": [
+    "octref.vetur",
+    "shd101wyy.markdown-preview-enhanced"
+  ]
+}

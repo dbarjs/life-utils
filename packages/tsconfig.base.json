@@ -1,0 +1,33 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "target": "ESNext",
+    "module": "ESNext",
+    "declaration": true,
+    "declarationMap": true,
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
+    "strict": true,
+    "emitDecoratorMetadata": true,
+    "noEmit": false,
+    "allowJs": true,
+    "composite": true,
+    "noImplicitThis": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "references": [
+    {
+      "path": "./app"
+    },
+    {
+      "path": "./auth"
+    },
+    {
+      "path": "./birthdays"
+    }
+  ]
+}
