@@ -1,0 +1,33 @@
+{
+  "name": "@life-utils/app",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "start": "node .output/server/index.mjs"
+  },
+  "dependencies": {
+    "@life-utils/auth": "^1.0.0",
+    "@life-utils/birthdays": "^1.0.0",
+    "@pinia/nuxt": "0.4.0",
+    "@vueuse/core": "^9.1.1",
+    "firebase": "^9.9.4",
+    "mdi": "^2.2.43",
+    "pinia": "2.0.18",
+    "sass": "^1.54.0",
+    "vuetify": "next"
+  },
+  "devDependencies": {
+    "@nuxt/test-utils-edge": "latest",
+    "@vitejs/plugin-vue": "latest",
+    "@vue/test-utils": "^2.0.2",
+    "jsdom": "latest",
+    "nuxt": "npm:nuxt3@latest",
+    "vite": "latest",
+    "vitest": "latest",
+    "vue-tsc": "^0.40.5"
+  }
+}
