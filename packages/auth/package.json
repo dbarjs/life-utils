@@ -1,0 +1,12 @@
+{
+  "name": "@life-utils/auth",
+  "version": "1.0.0",
+  "dependencies": {
+    "firebase": "^9.9.2",
+    "localforage": "^1.10.0",
+    "pinia": "2.0.18",
+    "rxjs": "^7.5.6",
+    "vue": "^3.2.37",
+    "vuetify": "next"
+  }
+}
