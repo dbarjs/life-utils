@@ -1,23 +1,23 @@
 <template>
   <VApp class="App system-sans-serif">
-    <AppAuthWrapper>
-      <AppHeader>
-        <AppNavigationMenu />
-      </AppHeader>
+    <AuthWrapper>
+      <Header>
+        <NavigationMenu />
+      </Header>
 
       <VMain>
         <VContainer>
           <slot />
         </VContainer>
       </VMain>
-    </AppAuthWrapper>
+    </AuthWrapper>
   </VApp>
 </template>
 
 <script lang="ts">
-import AppAuthWrapper from "@/components/App/AppAuthWrapper.vue";
-import AppHeader from "@/components/App/AppHeader.vue";
-import AppNavigationMenu from "@/components/App/AppNavigationMenu.vue";
+import AuthWrapper from "@/components/AppAuthWrapper.vue";
+import Header from "@/components/AppHeader.vue";
+import NavigationMenu from "@/components/AppNavigationMenu.vue";
 import { VApp, VContainer, VMain } from "vuetify/components";
 </script>
 
