@@ -1831,6 +1831,7 @@ __metadata:
   dependencies:
     "@life-utils/auth": ^1.0.0
     "@life-utils/birthdays": ^1.0.0
+    "@life-utils/sticker-album": ^1.0.0
     "@nuxt/test-utils-edge": latest
     "@pinia/nuxt": 0.4.0
     "@vitejs/plugin-vue": latest
@@ -1865,6 +1866,23 @@ __metadata:
 "@life-utils/birthdays@^1.0.0, @life-utils/birthdays@workspace:packages/birthdays":
   version: 0.0.0-use.local
   resolution: "@life-utils/birthdays@workspace:packages/birthdays"
+  dependencies:
+    firebase: ^9.9.4
+    pinia: ^2.0.21
+    vue: ^3.0.0
+    vue-demi: latest
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^2.0.0 || >=3.0.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  languageName: unknown
+  linkType: soft
+
+"@life-utils/sticker-album@^1.0.0, @life-utils/sticker-album@workspace:packages/sticker-album":
+  version: 0.0.0-use.local
+  resolution: "@life-utils/sticker-album@workspace:packages/sticker-album"
   dependencies:
     firebase: ^9.9.4
     pinia: ^2.0.21
