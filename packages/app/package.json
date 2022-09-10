@@ -12,6 +12,7 @@
   "dependencies": {
     "@life-utils/auth": "^1.0.0",
     "@life-utils/birthdays": "^1.0.0",
+    "@life-utils/shared": "^1.0.0",
     "@life-utils/sticker-album": "^1.0.0",
     "@pinia/nuxt": "0.4.0",
     "@vueuse/core": "^9.1.1",

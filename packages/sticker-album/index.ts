@@ -1,7 +1,7 @@
 import { addDoc, onSnapshot } from "firebase/firestore";
 import { useStickerAlbumStore } from "./store";
 import { IStickerAlbum } from "./types";
-import { createCollection } from "./utils";
+import { useFirestoreCollection } from "@life-utils/shared";
 import { computed } from "vue-demi";
 
 export function useStickerAlbum(options: IStickerAlbum.Options) {
@@ -15,10 +15,11 @@ export function useStickerAlbum(options: IStickerAlbum.Options) {
     throw new Error("Empty user");
   }
 
-  const collection = createCollection<IStickerAlbum.Item>(
+  const collection = useFirestoreCollection<IStickerAlbum.Item>(
     database,
-    "StickerAlbum"
+    "sticker-album"
   );
+
   const store = useStickerAlbumStore();
 
   const list = computed(() => {

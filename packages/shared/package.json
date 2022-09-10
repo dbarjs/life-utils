@@ -1,8 +1,7 @@
 {
-  "name": "@life-utils/sticker-album",
+  "name": "@life-utils/shared",
   "version": "1.0.0",
   "dependencies": {
-    "@life-utils/shared": "^1.0.0",
     "firebase": "^9.9.4",
     "pinia": "^2.0.21",
     "vue-demi": "latest"
