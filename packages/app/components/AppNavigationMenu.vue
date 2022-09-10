@@ -1,5 +1,9 @@
 <template>
   <nav class="AppNavigationMenu">
+    <VBtn rounded="pill" variant="tonal" prepend-icon="mdi-home" to="/">
+      <span>Home</span>
+    </VBtn>
+
     <VBtn
       rounded="pill"
       variant="tonal"
@@ -7,6 +11,15 @@
       to="/birthdays"
     >
       <span>Birthdays</span>
+    </VBtn>
+
+    <VBtn
+      rounded="pill"
+      variant="tonal"
+      prepend-icon="mdi-image-album"
+      to="/sticker-album"
+    >
+      <span>Sticker Album</span>
     </VBtn>
 
     <VBtn
