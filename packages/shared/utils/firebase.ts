@@ -1,6 +1,6 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
 
-export const getFirebaseApp = (): FirebaseApp => {
+export const useFirebaseApp = (): FirebaseApp => {
   const app = initializeApp({
     apiKey: "AIzaSyBAI61jKj5u3bJwRUIbss8lK2Ap6TlMjiY",
     authDomain: "life-utils.firebaseapp.com",
