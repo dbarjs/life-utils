@@ -1,12 +1,15 @@
 {
   "baseUrl": ".",
   "compilerOptions": {
-    "composite": true
+    "composite": true,
+    "rootDir": "."
   },
   "paths": {
     "@life-utils/app": ["./packages/app"],
     "@life-utils/auth": ["./packages/auth"],
-    "@life-utils/birthdays": ["./packages/birthdays"]
+    "@life-utils/birthdays": ["./packages/birthdays"],
+    "@life-utils/shared": ["./packages/shared"],
+    "@life-utils/sticker-album": ["./packages/sticker-album"]
   },
   "references": [
     {
@@ -17,6 +20,12 @@
     },
     {
       "path": "./packages/birthdays"
+    },
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./packages/sticker-album"
     }
   ],
   "exclude": ["node_modules", ".yarn"]
