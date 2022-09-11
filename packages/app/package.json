@@ -15,6 +15,7 @@
     "@life-utils/shared": "^1.0.0",
     "@life-utils/sticker-album": "^1.0.0",
     "@pinia/nuxt": "0.4.0",
+    "@vueuse/components": "^9.2.0",
     "@vueuse/core": "^9.1.1",
     "firebase": "^9.9.4",
     "mdi": "^2.2.43",

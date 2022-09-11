@@ -7,6 +7,19 @@
     "pinia": "2.0.18",
     "rxjs": "^7.5.6",
     "vue": "^3.2.37",
+    "vue-demi": "latest",
     "vuetify": "next"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "vue": "^3.0.0"
   }
 }

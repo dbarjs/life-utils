@@ -1837,6 +1837,7 @@ __metadata:
     "@pinia/nuxt": 0.4.0
     "@vitejs/plugin-vue": latest
     "@vue/test-utils": ^2.0.2
+    "@vueuse/components": ^9.2.0
     "@vueuse/core": ^9.1.1
     firebase: ^9.9.4
     jsdom: latest
@@ -1859,8 +1860,15 @@ __metadata:
     localforage: ^1.10.0
     pinia: 2.0.18
     rxjs: ^7.5.6
-    vue: ^3.2.37
+    vue: ^3.0.0
+    vue-demi: latest
     vuetify: next
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^2.0.0 || >=3.0.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -1904,12 +1912,14 @@ __metadata:
   dependencies:
     "@life-utils/shared": ^1.0.0
     firebase: ^9.9.4
+    localforage: ^1.10.0
     pinia: ^2.0.21
     vue: ^3.0.0
     vue-demi: latest
   peerDependencies:
     "@vue/composition-api": ^1.0.0-rc.1
     vue: ^2.0.0 || >=3.0.0
+    vuetify: "*"
   peerDependenciesMeta:
     "@vue/composition-api":
       optional: true
@@ -3091,6 +3101,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vueuse/components@npm:^9.2.0":
+  version: 9.2.0
+  resolution: "@vueuse/components@npm:9.2.0"
+  dependencies:
+    "@vueuse/core": 9.2.0
+    "@vueuse/shared": 9.2.0
+    vue-demi: "*"
+  checksum: 198a3c94ec3c90faa5f4589f5cc6f18f9a7bbaeef27cfe364381fb79312c50a29d560615cde2c109b62a30fe7229db34afe40d335c7ff7c042583730fbf4f1ae
+  languageName: node
+  linkType: hard
+
+"@vueuse/core@npm:9.2.0":
+  version: 9.2.0
+  resolution: "@vueuse/core@npm:9.2.0"
+  dependencies:
+    "@types/web-bluetooth": ^0.0.15
+    "@vueuse/metadata": 9.2.0
+    "@vueuse/shared": 9.2.0
+    vue-demi: "*"
+  checksum: 2ae6ef58ae932fe260911239888405e39e7cf7f9afdd512cc184248d97b66e1ec15a6a54b75835db040e68c35eafefe265071ff1a42b45d220217b8f9974a403
+  languageName: node
+  linkType: hard
+
 "@vueuse/core@npm:^9.1.1":
   version: 9.1.1
   resolution: "@vueuse/core@npm:9.1.1"
@@ -3119,12 +3152,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vueuse/metadata@npm:9.2.0":
+  version: 9.2.0
+  resolution: "@vueuse/metadata@npm:9.2.0"
+  checksum: 99c63f3ba1bf8b4aac9ec226d918906842589a93f3affafb17aaa9c64da433c8747f6fd829ac6a2f313c1d8c6003742ccbedba45d2dcce38da7ea5ff657e63c9
+  languageName: node
+  linkType: hard
+
 "@vueuse/shared@npm:9.1.1":
   version: 9.1.1
   resolution: "@vueuse/shared@npm:9.1.1"
   dependencies:
     vue-demi: "*"
   checksum: d59ad0dcf7c6d70f61ad4eb32153303f5f528638cb30f4c7aae840d0c1922e48f980784ee3053336ae4c6b6411633073d60e37df9d22fa9949a5c04d819a689c
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:9.2.0":
+  version: 9.2.0
+  resolution: "@vueuse/shared@npm:9.2.0"
+  dependencies:
+    vue-demi: "*"
+  checksum: b4d84dbb29e42fce062d8f33a011107d3187f40f1fa8cc83a28bc67c2280f4e33864309b5e70ecd078c5cb3c14106accd696b78c81c3ea6ed896ab5357ebc055
   languageName: node
   linkType: hard
 
@@ -11432,7 +11481,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.0.0, vue@npm:^3.2.37, vue@npm:^3.2.38":
+"vue@npm:^3.0.0, vue@npm:^3.2.38":
   version: 3.2.38
   resolution: "vue@npm:3.2.38"
   dependencies:
