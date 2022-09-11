@@ -3,10 +3,11 @@ import { IStickerAlbum } from "./types";
 
 export const useStickerAlbumStore = defineStore("StickerAlbum", {
   state: (): IStickerAlbum.State => ({
+    stickers: {},
     items: {},
   }),
   getters: {
-    list(): IStickerAlbum.List {
+    list(): IStickerAlbum.Sticker[] {
       return Object.entries(this.items).map(([id, item]) => ({
         id,
         ...item,
@@ -14,7 +15,7 @@ export const useStickerAlbumStore = defineStore("StickerAlbum", {
     },
   },
   actions: {
-    addItem(id: string, item: IStickerAlbum.Item) {
+    addItem(id: string, item: IStickerAlbum.Sticker) {
       console.log("addItem", id, item);
 
       this.items[id] = item;

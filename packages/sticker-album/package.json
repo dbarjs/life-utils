@@ -4,12 +4,14 @@
   "dependencies": {
     "@life-utils/shared": "^1.0.0",
     "firebase": "^9.9.4",
+    "localforage": "^1.10.0",
     "pinia": "^2.0.21",
     "vue-demi": "latest"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.1",
-    "vue": "^2.0.0 || >=3.0.0"
+    "vue": "^2.0.0 || >=3.0.0",
+    "vuetify": "*"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
