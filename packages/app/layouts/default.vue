@@ -1,6 +1,6 @@
 <template>
   <VApp class="App system-sans-serif">
-    <AuthWrapper>
+    <Wrapper>
       <Header>
         <NavigationMenu />
       </Header>
@@ -10,12 +10,12 @@
           <slot />
         </VContainer>
       </VMain>
-    </AuthWrapper>
+    </Wrapper>
   </VApp>
 </template>
 
 <script lang="ts">
-import AuthWrapper from "@/components/AppAuthWrapper.vue";
+import Wrapper from "@/components/AppWrapper.vue";
 import Header from "@/components/AppHeader.vue";
 import NavigationMenu from "@/components/AppNavigationMenu.vue";
 import { VApp, VContainer, VMain } from "vuetify/components";
