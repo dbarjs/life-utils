@@ -158,7 +158,7 @@ const collectedUniqueStickersPercentage = computed<number>(() => {
 });
 
 useHead({
-  title: "Birthdays",
+  title: "Sticker Album",
   titleTemplate: (title) => `${title} | Admin Panel`,
 });
 
