@@ -193,14 +193,13 @@ function onRemoveButtonClick(stickerCode?: string) {
 
 <template>
   <div class="wrapper">
-    <pre>{{ Object.keys(firestoreStickers).length }}</pre>
-    <pre>{{ Object.keys(_mergedStickers).length }}</pre>
-
     <v-switch
       v-model="isLocalSelecting"
       color="indigo"
       inset
-      :label="`Is Local Selecting: ${isLocalSelecting.toString()}`"
+      :label="`Is Local Selecting: ${
+        isLocalSelecting ? 'Enabled' : 'Disabled'
+      }`"
     ></v-switch>
 
     <VBtn @click="onProcessButtonClick">Process!</VBtn>
