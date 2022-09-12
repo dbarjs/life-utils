@@ -3,6 +3,7 @@ import { Firestore } from "@firebase/firestore";
 
 export namespace IStickerAlbum {
   interface State {
+    _unixTimestamp?: number;
     items: Record<string, Item>;
     stickers: Patch;
     patches?: State;

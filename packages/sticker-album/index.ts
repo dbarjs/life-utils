@@ -77,7 +77,7 @@ export function useStickerAlbum(options: IStickerAlbum.Options) {
 
   const processCurrentBatch = async (): Promise<void> => {
     await addDoc(patchesCollection, {
-      stickers: stickers.value,
+      _unixTimestamp: getTimestampInSeconds(),
     });
     await setDoc(stickersDocument, {
       stickers: stickers.value,
