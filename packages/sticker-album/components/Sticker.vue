@@ -63,6 +63,7 @@ function onRemoveButtonClick() {
   <VCard
     :key="sticker.code"
     :elevation="elevation"
+    border
     class="Sticker"
     :class="classObject"
   >
@@ -123,7 +124,7 @@ function onRemoveButtonClick() {
 .Sticker {
   aspect-ratio: 10/13;
   align-items: center;
-  background-color: #26c6da;
+  background-color: transparent;
   border-radius: 10px !important;
   display: flex;
   flex-direction: column;
@@ -156,6 +157,7 @@ function onRemoveButtonClick() {
 
   &__infoChip {
     background-color: yellow;
+    color: black;
     border-radius: 20px !important;
     font-size: 0.625rem !important;
     font-weight: 700;
@@ -191,6 +193,7 @@ function onRemoveButtonClick() {
   }
 
   &--isSelected {
+    background-color: #26c6da;
     background-color: #3f51b5;
   }
 

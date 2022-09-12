@@ -267,7 +267,7 @@ function onRemoveButtonClick(stickerCode?: string) {
 }
 
 .group-code-prefix {
-  color: #005662;
+  // color: #005662;
   font-size: 1.125rem;
   font-weight: 900;
   margin-right: 0.5rem;
