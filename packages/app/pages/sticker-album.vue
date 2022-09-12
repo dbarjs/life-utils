@@ -2,16 +2,19 @@
 import { useHead } from "#app";
 import { useFirebaseApp } from "@life-utils/shared";
 import { useStickerAlbum } from "@life-utils/sticker-album";
+import Sticker from "@life-utils/sticker-album/components/Sticker.vue";
 import { IStickerAlbum } from "@life-utils/sticker-album/types";
 import { getFirestore } from "firebase/firestore";
-import Sticker from "@life-utils/sticker-album/components/Sticker.vue";
-import { count } from "console";
 
 const {
-  addStickerToCurrentPatch,
+  addStickerToLocalPatch,
   processCurrentBatch,
-  removeStickerFromCurrentPatch,
-  stickers,
+  removeStickerFromLocalPatch,
+  clearLocalStickers,
+  localStickers,
+  firestoreStickers,
+  _mergedStickers,
+  isLocalSelecting,
 } = useStickerAlbum({
   database: getFirestore(useFirebaseApp()),
   user: {
@@ -113,13 +116,13 @@ const avaiableStickerCountOnGroups = stickerGroups.reduce<number>(
 );
 
 const stickersCountMap = computed<Record<string, string>>(() => {
-  if (!stickers.value) {
+  if (!_mergedStickers.value) {
     return {};
   }
 
   return stickerGroups.reduce<Record<string, string>>((countMap, group) => {
     countMap[group.code] = `${group.stickers.reduce<number>(
-      (count, sticker) => count + (stickers.value[sticker.code] || 0),
+      (count, sticker) => count + (_mergedStickers.value[sticker.code] ? 1 : 0),
       0
     )} / ${group.stickers.length}`;
 
@@ -128,17 +131,20 @@ const stickersCountMap = computed<Record<string, string>>(() => {
 });
 
 const collectedUniqueStickersCount = computed<number>(() => {
-  if (!stickers.value) {
+  if (!_mergedStickers.value) {
     return 0;
   }
 
-  return Object.values(stickers.value).reduce((uniqueCount, stickerCount) => {
-    if (stickerCount > 0) {
-      uniqueCount++;
-    }
+  return Object.values(_mergedStickers.value).reduce(
+    (uniqueCount, stickerCount) => {
+      if (stickerCount > 0) {
+        uniqueCount++;
+      }
 
-    return uniqueCount;
-  }, 0);
+      return uniqueCount;
+    },
+    0
+  );
 });
 
 const collectedUniqueStickersPercentage = computed<number>(() => {
@@ -156,12 +162,20 @@ useHead({
   titleTemplate: (title) => `${title} | Admin Panel`,
 });
 
-function timesSelected(stickerCode?: string) {
+function timesSelectedOnLocal(stickerCode?: string): number {
   if (!stickerCode) {
     return 0;
   }
 
-  return stickers.value[stickerCode] || 0;
+  return localStickers.value[stickerCode] || 0;
+}
+
+function timesSelectedOnFirestore(stickerCode?: string): number {
+  if (!stickerCode) {
+    return 0;
+  }
+
+  return firestoreStickers.value[stickerCode] || 0;
 }
 
 function onProcessButtonClick() {
@@ -169,17 +183,25 @@ function onProcessButtonClick() {
 }
 
 function onAddButtonClick(stickerCode?: string) {
-  addStickerToCurrentPatch(stickerCode);
+  addStickerToLocalPatch(stickerCode);
 }
 
 function onRemoveButtonClick(stickerCode?: string) {
-  removeStickerFromCurrentPatch(stickerCode);
+  removeStickerFromLocalPatch(stickerCode);
 }
 </script>
 
 <template>
   <div class="wrapper">
-    <pre>{{ collectedUniqueStickersPercentage }}</pre>
+    <pre>{{ Object.keys(firestoreStickers).length }}</pre>
+    <pre>{{ Object.keys(_mergedStickers).length }}</pre>
+
+    <v-switch
+      v-model="isLocalSelecting"
+      color="indigo"
+      inset
+      :label="`Is Local Selecting: ${isLocalSelecting.toString()}`"
+    ></v-switch>
 
     <VBtn @click="onProcessButtonClick">Process!</VBtn>
 
@@ -190,6 +212,11 @@ function onRemoveButtonClick(stickerCode?: string) {
       color="deep-orange"
     >
       <strong>{{ Math.ceil(collectedUniqueStickersPercentage) }}%</strong>
+      <span>&nbsp;</span>
+      <small
+        >({{ collectedUniqueStickersCount }} of
+        {{ avaiableStickerCountOnGroups }})</small
+      >
     </VProgressLinear>
 
     <VExpansionPanels variant="popout">
@@ -209,8 +236,12 @@ function onRemoveButtonClick(stickerCode?: string) {
               v-for="sticker in stickers"
               :key="sticker.code"
               class="sticker"
+              :isLocalSelecting="isLocalSelecting"
               :sticker="sticker"
-              :times-selected="timesSelected(sticker.code)"
+              :times-selected="timesSelectedOnLocal(sticker.code)"
+              :times-selected-on-firestore="
+                timesSelectedOnFirestore(sticker.code)
+              "
               @add-button:click="onAddButtonClick(sticker.code)"
               @remove-button:click="onRemoveButtonClick(sticker.code)"
             />
