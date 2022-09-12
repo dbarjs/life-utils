@@ -7,6 +7,10 @@ import { computed, ref } from "vue-demi";
 import { createStorage } from "unstorage";
 import localForage from "localforage";
 
+function getTimestampInSeconds(): number {
+  return Math.floor(Date.now() / 1000);
+}
+
 export function useStickerAlbum(options: IStickerAlbum.Options) {
   const { database, user } = options;
 
@@ -18,28 +22,40 @@ export function useStickerAlbum(options: IStickerAlbum.Options) {
     throw new Error("Empty user");
   }
 
-  const stickersDocument = useFirestoreDocument<Partial<IStickerAlbum.State>>(
-    database,
-    `sticker-album/${user.uid}`
-  );
   const storage = localForage.createInstance({
     name: "stickerAlbum",
     storeName: "@life-utils",
   });
+
+  const stickersDocument = useFirestoreDocument<Partial<IStickerAlbum.State>>(
+    database,
+    `sticker-album/${user.uid}`
+  );
   const patchesCollection = useFirestoreCollection<
     Partial<IStickerAlbum.State>
   >(database, `sticker-album/${user.uid}/patches`);
+
   const store = useStickerAlbumStore();
+
+  const isLocalSelecting = ref<boolean>(false);
   const firestoreStickers = ref<IStickerAlbum.State["stickers"]>({});
   const localStickers = ref<IStickerAlbum.State["stickers"]>({});
-  const stickers = computed<IStickerAlbum.State["stickers"]>(() => {
-    return {
-      ...firestoreStickers.value,
-      ...localStickers.value,
-    };
+  const _mergedStickers = computed<IStickerAlbum.State["stickers"]>(() => {
+    return Object.keys(localStickers.value).reduce<IStickerAlbum.Patch>(
+      (mergedStickers, stickerCode) => {
+        const localCount = localStickers.value[stickerCode];
+        if (mergedStickers[stickerCode]) {
+          mergedStickers[stickerCode] += localCount;
+        } else {
+          mergedStickers[stickerCode] = localCount;
+        }
+        return mergedStickers;
+      },
+      { ...firestoreStickers.value }
+    );
   });
 
-  const addStickerToCurrentPatch = (stickerCode?: string): void => {
+  const addStickerToLocalPatch = (stickerCode?: string): void => {
     if (!stickerCode) {
       return;
     }
@@ -53,7 +69,7 @@ export function useStickerAlbum(options: IStickerAlbum.Options) {
     setLocalStickersOnStorage(localStickers.value);
   };
 
-  const removeStickerFromCurrentPatch = (stickerCode?: string): void => {
+  const removeStickerFromLocalPatch = (stickerCode?: string): void => {
     if (!stickerCode) {
       return;
     }
@@ -76,13 +92,34 @@ export function useStickerAlbum(options: IStickerAlbum.Options) {
   };
 
   const processCurrentBatch = async (): Promise<void> => {
+    const mergedStickers = Object.keys({
+      ...localStickers.value,
+    }).reduce<IStickerAlbum.Patch>(
+      (mergedStickers, stickerCode) => {
+        const localCount = localStickers.value[stickerCode];
+        if (mergedStickers[stickerCode]) {
+          mergedStickers[stickerCode] += localCount;
+        } else {
+          mergedStickers[stickerCode] = localCount;
+        }
+        return mergedStickers;
+      },
+      { ...firestoreStickers.value }
+    );
+
     await addDoc(patchesCollection, {
+      stickers: mergedStickers,
       _unixTimestamp: getTimestampInSeconds(),
     });
     await setDoc(stickersDocument, {
-      stickers: stickers.value,
+      stickers: mergedStickers,
     });
-    setLocalStickersOnStorage(stickers.value);
+
+    clearLocalStickers();
+  };
+
+  const clearLocalStickers = () => {
+    setLocalStickersOnStorage({});
   };
 
   restoreStickersStorage();
@@ -92,16 +129,12 @@ export function useStickerAlbum(options: IStickerAlbum.Options) {
     { includeMetadataChanges: true },
     (querySnapshot) => {
       firestoreStickers.value = querySnapshot.data()?.stickers || {};
-      console.log("fuuu");
-      setLocalStickersOnStorage(stickers.value);
     }
   );
 
   const setLocalStickersOnStorage = (value: IStickerAlbum.Patch) => {
-    console.log("value", stickers.value);
-
     try {
-      storage.setItem("stickers", { ...stickers.value });
+      storage.setItem("stickers", { ...value });
     } catch {}
   };
 
@@ -109,10 +142,14 @@ export function useStickerAlbum(options: IStickerAlbum.Options) {
     patchesCollection,
     store,
 
-    stickers,
+    isLocalSelecting,
+    localStickers,
+    firestoreStickers,
+    _mergedStickers,
 
-    addStickerToCurrentPatch,
+    clearLocalStickers,
+    addStickerToLocalPatch,
     processCurrentBatch,
-    removeStickerFromCurrentPatch,
+    removeStickerFromLocalPatch,
   };
 }
