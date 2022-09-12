@@ -1,4 +1,4 @@
-import { useFirestoreDocument } from "./../shared/utils/firestore";
+import { useFirestoreDocument } from "@life-utils/shared/utils/firestore";
 import { addDoc, setDoc, onSnapshot, FieldValue } from "firebase/firestore";
 import { useStickerAlbumStore } from "./store";
 import { IStickerAlbum } from "./types";
